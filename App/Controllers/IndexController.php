@@ -9,12 +9,21 @@ use APP\Models;
 
 class IndexController extends Action {
 
-	public function index() {
-
+	public function index() 
+	{
+		$this->view->login = isset($_GET['login']) ? $_GET['login'] : '';
 		$this->render('index');
 	}
 
 	public function inscreverse() {
+		
+		$this->view->erroCadastro = false;
+		$this->view->usuario = array(
+			'nome' => '',
+			'email' => '',
+			'senha' =>  ''
+		); 
+		
 		$this->render('inscreverse');
 	}
 
@@ -23,7 +32,7 @@ class IndexController extends Action {
 		$usuario = Container::getModel('Usuario');
 		$usuario->__set('nome', $_POST['nome']);
 		$usuario->__set('email', $_POST['email']);
-		$usuario->__set('senha', $_POST['senha']);
+		$usuario->__set('senha', md5($_POST['senha']));
 		
 		$quantUsuarios = $usuario->getUsuarioPorEmail();
 
@@ -34,7 +43,14 @@ class IndexController extends Action {
 		}
 		else
 		{
+			$this->view->usuario = array(
+				'nome' => $_POST['nome'],
+				'email' => $_POST['email'],
+				'senha' => $_POST['senha']
+			); 
 
+			$this->view->erroCadastro = true;
+			$this->render('inscreverse');
 		}
 	}
 
