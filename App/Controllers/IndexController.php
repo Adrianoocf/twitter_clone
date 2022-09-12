@@ -18,6 +18,8 @@ class IndexController extends Action {
 	public function inscreverse() {
 		
 		$this->view->erroCadastro = false;
+		$this->view->erroEmail = false;
+
 		$this->view->usuario = array(
 			'nome' => '',
 			'email' => '',
@@ -35,20 +37,31 @@ class IndexController extends Action {
 		$usuario->__set('senha', md5($_POST['senha']));
 		
 		$quantUsuarios = $usuario->getUsuarioPorEmail();
+		
+		$autenticado = 0;
+		$posicaoArroba = strripos($usuario->email, '@');
+		$posicaoPonto = strripos($usuario->email, '.');
+		if ($posicaoArroba !== 0)
+		{
+			$autenticado++;
+		} 
+		if ($posicaoPonto > $posicaoArroba)
+		{
+			$autenticado++;
+		}
 
-		if( ($usuario->validarCadastro()) && (count($quantUsuarios) == 0 ))
+		if(($autenticado == 2) && (strlen($_POST['senha']) > 3) && ($usuario->validarCadastro()) && (count($quantUsuarios) == 0 ))
 		{
 			$usuario->salvar();
 			$this->render('cadastro');
 		}
 		else
 		{
-			$this->view->usuario = array(
+				$this->view->usuario = array(
 				'nome' => $_POST['nome'],
 				'email' => $_POST['email'],
 				'senha' => $_POST['senha']
 			); 
-
 			$this->view->erroCadastro = true;
 			$this->render('inscreverse');
 		}
