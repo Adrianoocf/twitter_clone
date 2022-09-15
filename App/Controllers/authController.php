@@ -16,7 +16,7 @@ class AuthController extends Action {
     public function autenticar()
     {
         $usuario = Container::getModel('usuario');
-        $usuario->__set('email',$_POST['email']);
+        $usuario->__set('email',strtolower($_POST['email']));
         $usuario->__set('senha',md5($_POST['senha']));
         $usuario->autenticar();
         if($usuario->__get('id') != '' && $usuario->__get('nome') != '')

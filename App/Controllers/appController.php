@@ -57,5 +57,25 @@
             $this->view->usuarios = $usuarios;
             $this->render('quemSeguir');
         }
+
+        public function acao()
+        {
+            $this->validaAutenticacao();
+            $acao = isset($_GET['acao']) ? $_GET['acao'] : ''; 
+            $id_usuario_seguindo = isset($_GET['id_usuario']) ? $_GET['id_usuario'] : ''; 
+            $usuario = Container::getModel('usuario');
+            $usuario->__set('id',$_SESSION['id']);
+            if ($acao == 'seguir')
+            {
+                $usuario->seguirUsuario($id_usuario_seguindo);
+            }
+            else if ($acao == 'deixar-de-seguir')
+            {
+                $usuario->deixarSeguirUsuario($id_usuario_seguindo);
+            }
+
+         
+            header('Location:/quem_seguir?atualiza=sim');
+        }
     }
 ?>

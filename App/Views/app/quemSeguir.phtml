@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg menu">
 	<div class="container">
 	  <div class="navbar-nav">
@@ -85,12 +86,23 @@
 									<div class="row">
 										<div class="col-md-6 align-items-center">
 											<?=$usuarios['nome']?>
+
 										</div>
-									
 										<div class="col-md-6 d-flex justify-content-end">
 											<div>
-												<a href="#" class="btn btn-success">Seguir</a>
-												<a href="#" class="btn btn-danger">Deixar de seguir</a>
+											    <?php
+												if($usuarios['seguindo_sn'] == 0)
+												{ ?>
+													<a href="/acao?acao=seguir&id_usuario=<?=$usuarios['id']?>"
+													 class="btn btn-success">Seguir</a>
+												<?php } ?>
+												
+												<?php
+												if($usuarios['seguindo_sn'] == 1)
+												{ ?>
+													<a href="/acao?acao=deixar-de-seguir&id_usuario=<?=$usuarios['id']?>"
+													class="btn btn-danger">Deixar de seguir</a>
+												<?php } ?>
 											</div>
 										</div>
 									</div>
@@ -100,7 +112,7 @@
 					</div>
 				<?php } 
 			}
-			else
+			else if (count($this->view->usuarios) == 0)
 			{ ?> 
 				<div class="row mb-2">
 					<div class="col">
@@ -122,6 +134,7 @@
 						</div>
 					</div>
 				</div>
+			
 			<?php } ?>
 			</div>
 
