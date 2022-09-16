@@ -64,10 +64,9 @@ h2 {
     font-size: 18px;
     font-weight: bold;
     line-height: 24px;
-    margin: 48px auto;
+    margin: 78px auto;
     position: relative;
 }
-
 
 .menu {
     background: #fff;
@@ -184,4 +183,111 @@ h2 {
 
 .tweet:hover {
     background-color: #f5f8fa;
+}
+
+@media (min-width: 1px) and (max-width: 525.99px) 
+{ 
+    .communicationItem {
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 18px;
+        line-height: 24px;
+        margin: 48px auto;
+        position: relative;
+    }
+}
+
+
+/* Dispositivos small (telefones em modo paisagem, com menos de 768px) */
+@media (min-width: 526px) and (max-width: 767.98px) 
+{ 
+    .communicationItem {
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 18px;
+        line-height: 24px;
+        margin: 48px auto;
+        position: relative;
+    }
+}  
+
+/* Dispositivos médios (tablets com menos de 992px) */
+
+@media (min-width: 768px) and (max-width: 991.98px) 
+{ 
+	.communicationItem {
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 15px;
+        line-height: 26px;
+        margin: 88px auto;
+        position: relative;
+    }
+    
+    .title {
+        font-size: 23px;
+        line-height: 30px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+        line-height: 22px;
+        margin: 12px auto;
+    }
+} 
+
+
+/* Dispositivos large (desktops com menos de 1200px) */
+@media (min-width: 992px) and (max-width: 1199.98px) 
+{ 
+    .communicationItem {
+        color: #fff;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 24px;
+        margin: 88px auto;
+        position: relative;
+    }
+
+    
+    .title {
+        font-size: 27px;
+        line-height: 32px;
+    }
+    
+    .subtitle {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 16px auto;
+    }
+}
+
+@media (min-width: 1200px) 
+{ 
+	.communicationItem {
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 18px;
+        line-height: 24px;
+        margin: 88px auto;
+        position: relative;
+    }
+
+    .title {
+        font-size: 27px;
+        line-height: 32px;
+    }
+    
+    .subtitle {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 16px auto;
+    }
 }

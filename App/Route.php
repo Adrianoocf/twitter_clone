@@ -25,10 +25,10 @@ class Route extends Bootstrap {
 			'controller' => 'indexController',
 			'action' => 'registrar'
 		);
-		
+
 		$routes['autenticar'] = array(
 			'route' => '/autenticar',
-			'controller' => 'authController',
+			'controller' => 'AuthController',
 			'action' => 'autenticar'
 		);
 
@@ -37,18 +37,18 @@ class Route extends Bootstrap {
 			'controller' => 'AppController',
 			'action' => 'timeline'
 		);
-		
+
 		$routes['sair'] = array(
 			'route' => '/sair',
 			'controller' => 'AuthController',
 			'action' => 'sair'
 		);
-		
+
 		$routes['tweet'] = array(
 			'route' => '/tweet',
 			'controller' => 'AppController',
 			'action' => 'tweet'
-		);	
+		);
 
 		$routes['quem_seguir'] = array(
 			'route' => '/quem_seguir',
@@ -61,13 +61,13 @@ class Route extends Bootstrap {
 			'controller' => 'AppController',
 			'action' => 'acao'
 		);
-		
-		$routes['atualiza'] = array(
-			'route' => '/atualiza',
+
+		$routes['apagarTweet'] = array(
+			'route' => '/apagarTweet',
 			'controller' => 'AppController',
-			'action' => 'atualiza'
+			'action' => 'apagarTweet'
 		);
-		
+
 		$this->setRoutes($routes);
 	}
 

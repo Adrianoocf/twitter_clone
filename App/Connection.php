@@ -16,7 +16,7 @@ class Connection {
 			return $conn;
 
 		} catch (\PDOException $e) {
-			echo 'Nao conectou .. ' .$e;
+			//.. tratar de alguma forma ..//
 		}
 	}
 }
