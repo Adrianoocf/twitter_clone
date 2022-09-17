@@ -28,6 +28,7 @@ h2 {
 
 .banner {
 	height: 100%;
+    width: 100%;
 	background-color: #1da1f2;
 }
 
@@ -53,8 +54,8 @@ h2 {
 .comunicacao {
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: center;
-}
+	justify-content: center; 
+} 
 
 .communicationItem {
 	color: #fff;
@@ -64,7 +65,7 @@ h2 {
     font-size: 18px;
     font-weight: bold;
     line-height: 24px;
-    margin: 78px auto;
+    margin: 111px auto;
     position: relative;
 }
 
@@ -223,7 +224,7 @@ h2 {
         display: flex;
         font-size: 15px;
         line-height: 26px;
-        margin: 88px auto;
+        margin: 111px auto;
         position: relative;
     }
     
@@ -251,7 +252,7 @@ h2 {
         font-size: 18px;
         font-weight: bold;
         line-height: 24px;
-        margin: 88px auto;
+        margin: 111px auto;
         position: relative;
     }
 
@@ -276,7 +277,7 @@ h2 {
         display: flex;
         font-size: 18px;
         line-height: 24px;
-        margin: 88px auto;
+        margin: 111px auto;
         position: relative;
     }
 

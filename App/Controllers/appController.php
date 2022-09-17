@@ -15,25 +15,37 @@ class AppController extends Action {
 			
 		//recuperação dos tweets
 		$tweet = Container::getModel('Tweet');
-
 		$tweet->__set('id_usuario', $_SESSION['id']);
+	
+		// $tweets = $tweet->getAll();
+		$total_registros_pagina = 3; // limit
+		$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1 ;
+		$deslocamento = ($pagina-1)* $total_registros_pagina ; // offset
 
-		$tweets = $tweet->getAll();
+		$tweets = $tweet->getPorPagina($total_registros_pagina, $deslocamento); // aplicando .. limit e offset
+		$total_tweets = $tweet->getTotalRegistros();
+
+		$total_de_paginas = ceil($total_tweets['total_tweet'] / $total_registros_pagina);
+		$this->view->total_de_paginas = $total_de_paginas;
 
 		$this->view->tweets = $tweets;
 
+		$this->view->pagina_ativa = $pagina;
+		$this->view->total_de_registros_pagina = $total_registros_pagina;
 
+		// echo '<br><br><br><br><br><br>' . $this->view->total_de_registros_pagina;
+		// echo '<br><br><br><br><br><br>' . $this->view->total_de_paginas;
+
+		// recuperacao do menu tweet seguindo e seguidores
 		$usuario = Container::getModel('Usuario');
 		$usuario->__set('id', $_SESSION['id']);
 
 		$this->view->info_usuario = $usuario->getInfoUsuario();
-		$this->view->total_tweets = $usuario->getTotalTweets();
+		$this->view->total_tweets = $tweet->getTotalRegistros();
 		$this->view->total_seguindo = $usuario->getTotalSeguindo();
 		$this->view->total_seguidores = $usuario->getTotalSeguidores();
-
+	
 		$this->render('timeline');
-		
-		
 	}
 
 	public function tweet() {
@@ -82,8 +94,12 @@ class AppController extends Action {
 		$usuario = Container::getModel('Usuario');
 		$usuario->__set('id', $_SESSION['id']);
 
+		//recuperação dos tweets
+		$tweet = Container::getModel('Tweet');
+		$tweet->__set('id_usuario', $_SESSION['id']);
+
 		$this->view->info_usuario = $usuario->getInfoUsuario();
-		$this->view->total_tweets = $usuario->getTotalTweets();
+		$this->view->total_tweets = $tweet->getTotalRegistros();
 		$this->view->total_seguindo = $usuario->getTotalSeguindo();
 		$this->view->total_seguidores = $usuario->getTotalSeguidores();
 
