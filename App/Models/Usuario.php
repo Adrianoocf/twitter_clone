@@ -80,7 +80,7 @@ class Usuario extends Model {
 				u.email,
 				(
 					select
-						count(*)
+						count(*) 
 					from
 						usuarios_seguidores as us 
 					where
@@ -98,6 +98,67 @@ class Usuario extends Model {
 		$stmt->execute();
 
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
+
+	//recuperar com paginacao
+	public function getPorPagina($limit,$offset) {
+
+		$query = "
+			select 
+				u.id, 
+				u.nome, 
+				u.email,
+				(
+					select
+						count(*) 
+					from
+						usuarios_seguidores as us 
+					where
+						us.id_usuario = :id_usuario and us.id_usuario_seguindo = u.id
+				) as seguindo_sn
+			from  
+				usuarios as u
+			where 
+				u.nome like :nome and u.id != :id_usuario
+			limit
+				$limit
+			offset
+				$offset
+			";
+
+		$stmt = $this->db->prepare($query);
+		$stmt->bindValue(':id_usuario', $this->__get('id'));
+		$stmt->execute();
+
+		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	}
+	//recuperar com paginacao
+
+	public function getTotalRegistros() {
+
+		$query = "
+			select 
+				count(*) as total_tweet
+			from 
+				tweets as t
+				left join usuarios as u on (t.id_usuario = u.id)
+			where 
+				t.id_usuario = :id_usuario
+				or t.id_usuario in (
+					select 
+						id_usuario_seguindo 
+					from 
+						usuarios_seguidores
+					where
+						id_usuario = :id_usuario)
+		";
+
+		$stmt = $this->db->prepare($query);
+		$stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+		$stmt->execute();
+
+		return $stmt->fetch(\PDO::FETCH_ASSOC);
 	}
 
 	public function seguirUsuario($id_usuario_seguindo) {
@@ -130,15 +191,15 @@ class Usuario extends Model {
 		return $stmt->fetch(\PDO::FETCH_ASSOC);
 	}
 
-	// //Total de tweets
-	// public function getTotalTweets() {
-	// 	$query = "select count(*) as total_tweet from tweets where id_usuario = :id_usuario";
-	// 	$stmt = $this->db->prepare($query);
-	// 	$stmt->bindValue(':id_usuario', $this->__get('id'));
-	// 	$stmt->execute();
+	/* //Total de tweets / outra funcao dentro da classe USUARIO
+	public function getTotalTweets() {
+		$query = "select count(*) as total_tweet from tweets where id_usuario = :id_usuario";
+		$stmt = $this->db->prepare($query);
+		$stmt->bindValue(':id_usuario', $this->__get('id'));
+		$stmt->execute();
 
-	// 	return $stmt->fetch(\PDO::FETCH_ASSOC);
-	// }
+		return $stmt->fetch(\PDO::FETCH_ASSOC);
+	} */
 
 	//Total de usuários que estamos seguindo
 	public function getTotalSeguindo() {

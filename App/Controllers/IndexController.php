@@ -41,7 +41,7 @@ class IndexController extends Action {
 		$autenticado = 0;
 		$posicaoArroba = strripos($usuario->email, '@');
 		$posicaoPonto = strripos($usuario->email, '.');
-		if ($posicaoArroba !== 0)
+		if ($posicaoArroba > 0)
 		{
 			$autenticado++;
 		} 

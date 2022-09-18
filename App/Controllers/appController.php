@@ -18,7 +18,7 @@ class AppController extends Action {
 		$tweet->__set('id_usuario', $_SESSION['id']);
 	
 		// $tweets = $tweet->getAll();
-		$total_registros_pagina = 3; // limit
+		$total_registros_pagina = 4; // limit
 		$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1 ;
 		$deslocamento = ($pagina-1)* $total_registros_pagina ; // offset
 
@@ -32,9 +32,6 @@ class AppController extends Action {
 
 		$this->view->pagina_ativa = $pagina;
 		$this->view->total_de_registros_pagina = $total_registros_pagina;
-
-		// echo '<br><br><br><br><br><br>' . $this->view->total_de_registros_pagina;
-		// echo '<br><br><br><br><br><br>' . $this->view->total_de_paginas;
 
 		// recuperacao do menu tweet seguindo e seguidores
 		$usuario = Container::getModel('Usuario');
@@ -81,13 +78,14 @@ class AppController extends Action {
 		
 		$usuarios = array();
 
-		if($pesquisarPor != '') {
+		// if($pesquisarPor != '') {
 			
 			$usuario = Container::getModel('Usuario');
 			$usuario->__set('nome', $pesquisarPor);
 			$usuario->__set('id', $_SESSION['id']);
 			$usuarios = $usuario->getAll();
-		}
+		// }
+
 
 		$this->view->usuarios = $usuarios;
 		
