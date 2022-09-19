@@ -129,6 +129,8 @@ class Usuario extends Model {
 
 		$stmt = $this->db->prepare($query);
 		$stmt->bindValue(':id_usuario', $this->__get('id'));
+		$stmt->bindValue(':nome', '%'.$this->__get('nome').'%');
+
 		$stmt->execute();
 
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -138,24 +140,17 @@ class Usuario extends Model {
 	public function getTotalRegistros() {
 
 		$query = "
-			select 
-				count(*) as total_tweet
-			from 
-				tweets as t
-				left join usuarios as u on (t.id_usuario = u.id)
-			where 
-				t.id_usuario = :id_usuario
-				or t.id_usuario in (
-					select 
-						id_usuario_seguindo 
-					from 
-						usuarios_seguidores
-					where
-						id_usuario = :id_usuario)
+		select 
+			count(*) as total_usuarios
+		from  
+			usuarios as u
+		where 
+			u.id != :id_usuario
 		";
 
+
 		$stmt = $this->db->prepare($query);
-		$stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+		$stmt->bindValue(':id_usuario', $this->__get('id'));
 		$stmt->execute();
 
 		return $stmt->fetch(\PDO::FETCH_ASSOC);

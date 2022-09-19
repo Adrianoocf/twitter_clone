@@ -83,12 +83,31 @@ class AppController extends Action {
 			$usuario = Container::getModel('Usuario');
 			$usuario->__set('nome', $pesquisarPor);
 			$usuario->__set('id', $_SESSION['id']);
-			$usuarios = $usuario->getAll();
-		// }
 
+			$total_registros_pagina = 3; // limit
+			$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1 ;
+			$deslocamento = ($pagina-1)* $total_registros_pagina ; // offset
+			
+			$usuarios = $usuario->getPorPagina($total_registros_pagina, $deslocamento);
+
+			$total_usuarios = $usuario->getTotalRegistros();
+
+			$total_de_paginas = ceil($total_usuarios['total_usuarios'] / $total_registros_pagina);
+			$this->view->total_de_paginas = $total_de_paginas;
+
+			$this->view->pagina_ativa = $pagina;
+			$this->view->total_de_registros_pagina = $total_registros_pagina;
+
+		// }
+		
 
 		$this->view->usuarios = $usuarios;
-		
+
+ 		if($pesquisarPor == '') 
+		{
+			$this->view->usuarios == 0;
+		}
+
 		$usuario = Container::getModel('Usuario');
 		$usuario->__set('id', $_SESSION['id']);
 
