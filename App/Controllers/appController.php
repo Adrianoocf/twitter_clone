@@ -84,7 +84,7 @@ class AppController extends Action {
 			$usuario->__set('nome', $pesquisarPor);
 			$usuario->__set('id', $_SESSION['id']);
 
-			$total_registros_pagina = 3; // limit
+			$total_registros_pagina = 4; // limit
 			$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1 ;
 			$deslocamento = ($pagina-1)* $total_registros_pagina ; // offset
 			

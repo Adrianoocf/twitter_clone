@@ -145,12 +145,14 @@ class Usuario extends Model {
 		from  
 			usuarios as u
 		where 
-			u.id != :id_usuario
+			u.id != :id_usuario and u.nome like :nome
 		";
 
 
 		$stmt = $this->db->prepare($query);
 		$stmt->bindValue(':id_usuario', $this->__get('id'));
+		$stmt->bindValue(':nome', '%'.$this->__get('nome').'%');
+
 		$stmt->execute();
 
 		return $stmt->fetch(\PDO::FETCH_ASSOC);
